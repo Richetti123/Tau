@@ -1,55 +1,31 @@
-import ytdl from 'ytdl-core';
-import fs from 'fs';
-
-const handler = async (m, {conn, args, isPrems, isOwner, command}) => {
-  const datas = global
-  const idioma = datas.db.data.users[m.sender].language
-  const _translate = JSON.parse(fs.readFileSync(`./language/${idioma}.json`))
-  const tradutor = _translate.plugins.downloader_ytvideodl
-
-  const getRandom = (ext) => {
-    return `${Math.floor(Math.random() * 10000)}${ext}`;
-  };
-  if (args.length === 0) {
-    m.reply(`${tradutor.texto1}`);
-    return;
-  }
+import {youtubedl, youtubedlv2} from '@bochilteam/scraper';
+import fetch from 'node-fetch';
+const handler = async (m, {conn, args}) => {
+  if (!args[0]) throw '*[❗𝐈𝐍𝐅𝐎❗] 𝙸𝙽𝚂𝙴𝚁𝚃𝙴 𝙴𝙻 𝙲𝙾𝙼𝙰𝙽𝙳𝙾 𝙼𝙰𝚂 𝙴𝙻 𝙴𝙽𝙻𝙰𝙲𝙴 / 𝙻𝙸𝙽𝙺 𝙳𝙴 𝚄𝙽 𝚅𝙸𝙳𝙴𝙾 𝙳𝙴 𝚈𝙾𝚄𝚃𝚄𝙱𝙴*';
+  await m.reply(`*_⏳Sᴇ ᴇsᴛᴀ ᴘʀᴏᴄᴇsᴀɴᴅᴏ Sᴜ ᴠɪᴅᴇᴏ...⏳_*\n\n*◉ Sɪ Sᴜ ᴠɪᴅᴇᴏ ɴᴏ ᴇs ᴇɴᴠɪᴀᴅᴏ, ᴘʀᴜᴇʙᴇ ᴄᴏɴ ᴇʟ ᴄᴏᴍᴀɴᴅᴏ #playdoc ᴏ #play.2 ᴏ #ytmp4doc ◉*`);
   try {
-    const urlYt = args[0];
-    if (!urlYt.startsWith('http')) {
-      m.reply(`${tradutor.texto2}`);
-      return;
+    const qu = args[1] || '360';
+    const q = qu + 'p';
+    const v = args[0];
+    const yt = await youtubedl(v).catch(async (_) => await youtubedlv2(v));
+    const dl_url = await yt.video[q].download();
+    const ttl = await yt.title;
+    const size = await yt.video[q].fileSizeH;
+    const cap = `*◉—⌈📥 𝐘𝐎𝐔𝐓𝐔𝐁𝐄 𝐃𝐋 📥⌋—◉*\n❏ *𝚃𝙸𝚃𝚄𝙻𝙾:* ${ttl}\n❏ *𝙿𝙴𝚂𝙾:* ${size}`.trim();
+    await await conn.sendMessage(m.chat, {document: {url: dl_url}, caption: cap, mimetype: 'video/mp4', fileName: ttl + `.mp4`}, {quoted: m});
+  } catch {
+    try {
+      const lolhuman = await fetch(`https://api.lolhuman.xyz/api/ytvideo2?apikey=${lolkeysapi}&url=${args[0]}`);
+      const lolh = await lolhuman.json();
+      const n = lolh.result.title || 'error';
+      const n2 = lolh.result.link;
+      const n3 = lolh.result.size;
+      const cap2 = `*◉—⌈📥 𝐘𝐎𝐔𝐓𝐔𝐁𝐄 𝐃𝐋 📥⌋—◉*\n❏ *𝚃𝙸𝚃𝚄𝙻𝙾:* ${n}\n❏ *𝙿𝙴𝚂𝙾:* ${n3}`.trim();
+      await conn.sendMessage(m.chat, {document: {url: n2}, caption: cap2, mimetype: 'video/mp4', fileName: n + `.mp4`}, {quoted: m});
+    } catch {
+      await conn.reply(m.chat, '*[❗] 𝙴𝚁𝚁𝙾𝚁 𝙽𝙾 𝙵𝚄𝙴 𝙿𝙾𝚂𝙸𝙱𝙻𝙴 𝙳𝙴𝚂𝙲𝙰𝚁𝙶𝙰𝚁 𝙴𝙻 𝚅𝙸𝙳𝙴𝙾*', m);
     }
-    const infoYt = await ytdl.getInfo(urlYt);
-    const titleYt = infoYt.videoDetails.title;
-    const randomName = getRandom('.mp4');
-    const stream = ytdl(urlYt, {filter: (info) => info.itag == 22 || info.itag == 18}).pipe(fs.createWriteStream(`./tmp/${randomName}`));
-    m.reply(global.wait);
-    // console.log("Descargando ->", urlYt);
-    await new Promise((resolve, reject) => {
-      stream.on('error', reject);
-      stream.on('finish', resolve);
-    });
-    const stats = fs.statSync(`./tmp/${randomName}`);
-    const fileSizeInBytes = stats.size;
-    const fileSizeInMegabytes = fileSizeInBytes / (1024 * 1024);
-    // console.log("Tamaño del video: " + fileSizeInMegabytes);
-    if (fileSizeInMegabytes <= 999) {
-      if (command == 'ytshort') {
-        conn.sendMessage( m.chat, {video: fs.readFileSync(`./tmp/${randomName}`), fileName: `${titleYt}.mp4`, mimetype: 'video/mp4'}, {quoted: m});
-      } else {
-        conn.sendMessage( m.chat, {document: fs.readFileSync(`./tmp/${randomName}`), fileName: `${titleYt}.mp4`, mimetype: 'video/mp4'}, {quoted: m});
-      }
-    } else {
-      m.reply(`${tradutor.texto3}`);
-    }
-    fs.unlinkSync(`./tmp/${randomName}`);
-  } catch (e) {
-    m.reply(e.toString());
   }
 };
-handler.help = ['ytd'];
-handler.tags = ['downloader'];
-handler.command = ['videodoc', 'documentvid', 'videodocumento', 'ytshort'];
-handler.exp = 3;
+handler.command = /^ytmp4doc|ytvdoc|ytmp4.2|ytv.2$/i;
 export default handler;
