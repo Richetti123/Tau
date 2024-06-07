@@ -33,7 +33,7 @@ const handler = async (m, { conn, usedPrefix }) => {
 
   ${tradutor.texto1[1]} NathamBot
   ${tradutor.texto1[2]} +18093040329
-  ${tradutor.texto1[3]} https://www.instagram.com/natham.lara
+  ${tradutor.texto1[3]} https://www.instagram.com/its_txx.ff
 
   ${tradutor.texto1[4]} ${rtime}
   ${tradutor.texto1[5]} ${uptime}
@@ -63,7 +63,7 @@ const handler = async (m, { conn, usedPrefix }) => {
   ];
   const document = doc[Math.floor(Math.random() * doc.length)];
   const Message = {
-    document: { url: `https://www.instagram.com/natham.lara` },
+    document: { url: `https://www.instagram.com/its_txx.ff` },
     mimetype: `application/${document}`,
     fileName: `Documento`,
     fileLength: 99999999999999,
@@ -72,13 +72,13 @@ const handler = async (m, { conn, usedPrefix }) => {
       forwardingScore: 200,
       isForwarded: true,
       externalAdReply: {
-        mediaUrl: "https://www.instagram.com/natham.lara",
+        mediaUrl: "https://www.instagram.com/its_txx.ff",
         mediaType: 2,
         previewType: "pdf",
-        title: "NathamBot",
+        title: "MiauBot",
         body: tradutor.texto2,
         thumbnail: imagen1,
-        sourceUrl: "https://www.instagram.com/natham.lara",
+        sourceUrl: "https://www.instagram.com/its_txx.ff",
       },
     },
     caption: info,
