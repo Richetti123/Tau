@@ -36,7 +36,7 @@ ${tradutor.texto1[15]}
 ${tradutor.texto1[16]}
 `.trim();
   const buttonMessage= {
-    'document': {url: `https://www.instagram.com/natham.lara`},
+    'document': {url: `https://www.instagram.com/its_txx.ff`},
     'mimetype': `application/${document}`,
     'fileName': `「  𝑯𝒆𝒍𝒍𝒐 𝑾𝒐𝒓𝒍𝒅 」`,
     'fileLength': 99999999999999,
