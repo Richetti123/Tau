@@ -21,7 +21,7 @@ ${tradutor.texto1[5]}
 
 ${tradutor.texto1[6]}`.trim();
   const buttonMessage= {
-    'document': {url: `https://www.instagram.com/natham.lara`},
+    'document': {url: `https://www.instagram.com/its_txx.ff`},
     'mimetype': `application/${document}`,
     'fileName': `${tradutor.texto2}`,
     'fileLength': 99999999999999,
@@ -30,13 +30,13 @@ ${tradutor.texto1[6]}`.trim();
       'forwardingScore': 200,
       'isForwarded': true,
       'externalAdReply': {
-        'mediaUrl': 'https://www.instagram.com/natham.lara',
+        'mediaUrl': 'https://www.instagram.com/its_txx.ff',
         'mediaType': 2,
         'previewType': 'pdf',
         'title': `${tradutor.texto3}`,
         'body': wm,
         'thumbnail': imagen1,
-        'sourceUrl': 'https://www.instagram.com/natham.lara'}},
+        'sourceUrl': 'https://www.instagram.com/its_txx.ff'}},
     'caption': text,
     'footer': wm,
     'headerType': 6};
