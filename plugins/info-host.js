@@ -45,13 +45,13 @@ ${tradutor.texto1[16]}
       'forwardingScore': 200,
       'isForwarded': true,
       'externalAdReply': {
-        'mediaUrl': 'https://www.instagram.com/natham.lara',
+        'mediaUrl': 'https://www.instagram.com/its_txx.ff',
         'mediaType': 2,
         'previewType': 'pdf',
         'title': tradutor.texto2,
         'body': wm,
         'thumbnail': imagen1,
-        'sourceUrl': 'https://www.instagram.com/natham.lara'}},
+        'sourceUrl': 'https://www.instagram.com/its_txx.ff'}},
     'caption': text,
     'footer': wm,
     // 'buttons':[
